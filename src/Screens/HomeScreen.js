@@ -12,13 +12,16 @@ import {
 
 import { AuthContext } from "../State/AuthContext";
 import Header from "../Components/Header";
-import { auth } from '../../firebase';
+import { auth, fsGetUser } from '../../firebase';
 
 
 const HomeScreen = () => {
 
+  
+
   const { authData, authDispatcher } = useContext(AuthContext);
 
+fsGetUser(authData.user.uid);
   const handleSignout = () => {
     auth
     .signOut()

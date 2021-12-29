@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
 import firebase from 'firebase/compat/app';
+import { getFirestore, doc, getDoc } from "firebase/firestore"; 
 import 'firebase/compat/auth';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,7 +24,23 @@ if (firebase.apps.length === 0) {
   app = firebase.app();
 }
 
-// const db = app.firestore();
+// Create our global Auth object
 const auth = firebase.auth();
 
-export { auth };
+// Create access to our firestore database
+const db = getFirestore();
+
+// Custom function to get user from firstore by documntID which is the uid from Auth
+const fsGetUser = async (uid) => {
+  const docRef = doc(db, `users/${uid}`);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+}
+
+export { auth, fsGetUser };

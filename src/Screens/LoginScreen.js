@@ -22,7 +22,7 @@ const LoginScreen = () => {
   const handleLoginUser = () => {
     setError(false);
     auth.signInWithEmailAndPassword(email, password).then( (userCredentials) => {
-      //console.log(userCredentials.user.emailVerified);
+      console.log(userCredentials.user);
       if (userCredentials.user.emailVerified === false) {
         // User email is not verified
         setError('You need to verify your email');
