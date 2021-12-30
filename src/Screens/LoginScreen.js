@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AuthContext } from "../State/AuthContext";
-import { auth } from '../../firebase';
+import { auth, fsGetUser } from '../../firebase';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -22,7 +22,7 @@ const LoginScreen = () => {
   const handleLoginUser = () => {
     setError(false);
     auth.signInWithEmailAndPassword(email, password).then( (userCredentials) => {
-      console.log(userCredentials.user);
+      //console.log(userCredentials.user);
       if (userCredentials.user.emailVerified === false) {
         // User email is not verified
         setError('You need to verify your email');
@@ -33,10 +33,25 @@ const LoginScreen = () => {
          * 3. firebase auth.currentUser was not working with StackNavigator screens, so had to use no2 approach
          * 4. https://coderedirect.com/questions/475464/react-navigation-in-react-native-with-conditional-stack-and-authentication
          * */
+
+        // Store Firebase user in our context
         authDispatcher({
           type: "userLoggedIn",
           payload: userCredentials.user,
         });
+
+        // Now lets get user profile. Get our user document from firebase/firestore by userid
+        fsGetUser(userCredentials.user.uid).then((userProfile) => {
+
+          //console.log(userProfile);
+
+          // Store Firestore user profile in our context
+          authDispatcher({
+            type: "setProfile",
+            payload: userProfile,
+          });
+        });
+
         //console.log(auth.currentUser);
       }
     }).catch( (error) => {

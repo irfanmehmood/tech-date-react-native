@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // Custom screens
 import HomeScreen from "./src/Screens/HomeScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
+import ProfileScreen from "./src/Screens/ProfileScreen";
 
 // React hooks
 import React, { useReducer, useEffect } from "react";
@@ -46,6 +47,11 @@ export default function App() {
                 name="Home"
                 component={HomeScreen}
                 options={{ title: "Welcome", headerShown: false}}
+              />
+               <Stack.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{ title: "Profile", headerShown: false}}
               />
             </>
           )}
