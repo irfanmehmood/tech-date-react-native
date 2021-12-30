@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+    borderRadius: 75,
   },
 });
 

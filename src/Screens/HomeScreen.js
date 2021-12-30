@@ -7,13 +7,17 @@ import {
   Image,
   View,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import Swiper from "react-native-deck-swiper";
+import { styles } from "../Libs/style";
 
 import { AuthContext } from "../State/AuthContext";
 import Header from "../Components/Header";
 import { auth, fsGetAvilableMatches } from "../../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { backgroundColor, borderColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const HomeScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
@@ -94,9 +98,9 @@ const HomeScreen = () => {
                 console.log('onSwipedRight', cardIndex)
               }}
               renderCard={(match) => (
-                <View style={styles.card,{display:'flex'}}>
+                <View style={styles.card,{backgroundColor:"white"}}>
                   <Image
-                    style={styles.tinyLogo}
+                    
                     name="user"
                     source={{
                       uri: match.imageUrl,
@@ -108,55 +112,35 @@ const HomeScreen = () => {
               )}
             />
           )}
+          
           </View>
+          
         </View>
+        <View style={styles.box}>
+        <View style={styles.row}>
+            <TouchableOpacity
+              onPress={() => {
+                console.log("Swiped Left")
+              }}
+            >
+              <Ionicons name="heart-dislike" style={styles.accButton} size={50} color="#FE836D" />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                console.log("Swiped Right")
+              }}
+            >
+              <Ionicons name="heart-sharp" style={styles.accButton} size={50} color="#63DE9B" />
+            </TouchableOpacity>
+          </View>
+          </View>
       </SafeAreaView>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  body: {
-    display: "flex",
-    backgroundColor:"white",
-    height:"100%",
-    color:"white"
-  },
-  card: {
-    // padding: 10,
-    display: "flex",
-    flex: 1,
-    height:"100%"
-    
-    
-  },
-  button: {
-    display:"flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    marginBottom: 10,
-    padding: 20,
-  },
-  text: {
-    display:"flex",
-    fontSize: 24,
-    lineHeight: 28,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "black",
-    marginBottom: 10,
-  },
-  tinyLogo: {
-    
-    height: "60%",
-    borderRadius: 25,
-    borderWidth: 3,
-    borderColor: "white",
-    marginBottom: 20,
-  },
-});
+
 
 export default HomeScreen;

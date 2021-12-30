@@ -1,13 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+
 // Custom screens
 import HomeScreen from "./src/Screens/HomeScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 
 //Styles for android statusbar fix
-import { StyleSheet, StatusBar, Platform } from "react-native";
+import { StyleSheet, StatusBar, Platform, bar } from "react-native";
 
 // React hooks
 import React, { useReducer, useEffect } from "react";
@@ -37,7 +38,7 @@ export default function App() {
       <NavigationContainer >
         <Stack.Navigator
           screenOptions={{
-            headerShown: true
+            headerShown: false
           }}
         >
           {authData.user === null ? (
@@ -45,7 +46,7 @@ export default function App() {
               <Stack.Screen
                 name="Login"
                 component={LoginScreen}
-                options={{ title: "Login" }}
+                options={{ title: "Login"}}
               />
             </>
           ) : (

@@ -9,7 +9,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../State/AuthContext";
-
+import { styles } from "../Libs/style";
 
 const Header = () => {
 
@@ -32,6 +32,12 @@ const Header = () => {
               uri: authData.profile.imageUrl,
             }}
           />
+          /*<Feather
+            style={styles.centeredIcon}
+            name="home"
+            size={50}
+            color="red"
+          />*/
           }
         </TouchableOpacity>
       </View>
@@ -46,7 +52,7 @@ const Header = () => {
             name="home"
             size={50}
             color="red"
-          />
+          ></Feather>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>
@@ -66,29 +72,5 @@ const Header = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 12,
-    borderWidth: 0,
-    flexDirection: "row",
-    display: "flex",
-  },
-  row: {
-    padding: 0,
-    flex: 1,
-    textAlign: "center",
-  },
-  centeredIcon: {
-    textAlign: "center",
-  },
-  tinyLogo: {
-    width: 50,
-    height: 50,
-    borderRadius: 150 / 2,
-    borderWidth: 3,
-    borderColor: "red"
-  },
-});
 
 export default Header;
