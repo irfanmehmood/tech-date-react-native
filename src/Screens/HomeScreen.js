@@ -75,26 +75,17 @@ const HomeScreen = () => {
     <>
       <SafeAreaView style={styles.body}>
         <Header />
-        <View>
-          {/* <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate("Profile");
-            }}
-          >
-            <Text style={styles.textButton}>Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleSignout}>
-            <Text style={styles.textButton}>Sign out</Text>
-          </TouchableOpacity> */}
-          {availableMatches && (
-            <Swiper
+        <View style={styles.card}>
+          <View style={styles.body}>
+          
+          {availableMatches  && (
+            <Swiper 
+              backgroundColor="white"
               cards={getDummyData(true, true)}
               onSwiped={(cardIndex) => {console.log("cardIndex" , cardIndex)}}
               cardIndex={0}
-              backgroundColor={'#4FD0E9'}
+              
               stackSize= {3}
-              animateCardOpacity
               verticalSwipe={false}
               onSwipedLeft={(cardIndex) => {
                 console.log('onSwipedLeft', cardIndex)
@@ -103,19 +94,21 @@ const HomeScreen = () => {
                 console.log('onSwipedRight', cardIndex)
               }}
               renderCard={(match) => (
-                <View style={styles.card}>
+                <View style={styles.card,{display:'flex'}}>
                   <Image
                     style={styles.tinyLogo}
                     name="user"
                     source={{
                       uri: match.imageUrl,
                     }}
+                    
                   />
                   <Text style={styles.text}>{match.name}</Text>
                 </View>
               )}
             />
           )}
+          </View>
         </View>
       </SafeAreaView>
     </>
@@ -125,13 +118,20 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   body: {
     display: "flex",
+    backgroundColor:"white",
+    height:"100%",
+    color:"white"
   },
   card: {
     // padding: 10,
     display: "flex",
     flex: 1,
+    height:"100%"
+    
+    
   },
   button: {
+    display:"flex",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   text: {
+    display:"flex",
     fontSize: 24,
     lineHeight: 28,
     fontWeight: "bold",
@@ -149,6 +150,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   tinyLogo: {
+    
     height: "60%",
     borderRadius: 25,
     borderWidth: 3,

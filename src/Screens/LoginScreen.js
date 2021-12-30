@@ -77,7 +77,7 @@ const LoginScreen = () => {
 
   return (
     <View>
-      <SafeAreaView>
+      
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -94,7 +94,8 @@ const LoginScreen = () => {
           value={password}
           placeholder="Password"
           keyboardType="numeric"
-          secureTextEntry
+          secureTextEntry={true}
+          password={true}
         />
         <TouchableOpacity style={styles.button} onPress={handleLoginUser}>
           <Text style={styles.text}>Login</Text>
@@ -105,7 +106,7 @@ const LoginScreen = () => {
         {error !== false && (
           <Text style={styles.error}>{error}</Text>
         )}
-      </SafeAreaView>
+     
     </View>
   );
 };

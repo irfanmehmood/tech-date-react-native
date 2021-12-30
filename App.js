@@ -6,6 +6,9 @@ import HomeScreen from "./src/Screens/HomeScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 
+//Styles for android statusbar fix
+import { StyleSheet, StatusBar, Platform } from "react-native";
+
 // React hooks
 import React, { useReducer, useEffect } from "react";
 
@@ -20,17 +23,21 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
+  console.log(Platform.OS, StatusBar.currentHeight)
+
+  StatusBar.setHidden(true)
+
   const [authData, authDispatcher] = useReducer(
     AuthDispatcher.reducer,
     AuthDispatcher.initialState
   );
 
   return (
-    <AuthContext.Provider value={{ authData, authDispatcher }}>
-      <NavigationContainer>
+    <AuthContext.Provider value={{ authData, authDispatcher }} style={{ }}>
+      <NavigationContainer >
         <Stack.Navigator
           screenOptions={{
-            headerShown: false
+            headerShown: true
           }}
         >
           {authData.user === null ? (
