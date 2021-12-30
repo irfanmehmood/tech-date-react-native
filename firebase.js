@@ -25,6 +25,9 @@ if (firebase.apps.length === 0) {
   app = firebase.app();
 }
 
+// Create our global Auth object
+const auth = firebase.auth();
+
 // Expo, Firebase recipies
 // https://modularfirebase.web.app/common-use-cases/firestore/
 
@@ -65,7 +68,67 @@ const fsUpdateUser = async (uid, userProfileName, userProfileAge) => {
   console.log("Updated user!");
 };
 
-// Create our global Auth object
-const auth = firebase.auth();
+const registerUser = (email, password) => {
+  auth.createUserWithEmailAndPassword(email, password).then( (response) => {
+    console.log(response);
+  }).catch( (error) => {
+     console.log(error.message);
+  });
+}
 
-export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches };
+const createDummyData = async (howMany) => {
+
+  //registerUser
+
+  // Get our random users
+  const response  = await fetch(`https://randomuser.me/api/?results=3&nat=gb,us,es`);
+
+  // Covert to JSON
+  const users = await response.json();
+
+  // Loop over our random Users
+  users.results.forEach(function (user) {
+
+    // Try to register user
+    let registered = registerUser(user.email, 'pass1234');
+
+    // If success
+    if (registered) {
+
+      // Create user profile
+        
+    }
+
+  });
+
+  
+
+  
+  
+  // let users = [];
+
+  // if (women) {
+  //   for (let i = 1; i < 10; i++) {
+  //     users.push({
+  //       imageUrl: `https://randomuser.me/api/portraits/women/${i}.jpg`,
+  //       name: `Women ${i}`,
+  //     })
+  //   }
+  // }
+
+  // if (men) {
+  //   for (let m = 1; m < 10; m++) {
+  //     users.push({
+  //       imageUrl: `https://randomuser.me/api/portraits/men/${m}.jpg`,
+  //       name: `Men ${m}`,
+  //     })
+  //   }
+  // }
+
+  // return users;
+
+}
+
+
+
+export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches, createDummyData };

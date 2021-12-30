@@ -9,7 +9,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { auth, fsUpdateUser, fsGetUser } from "../../firebase";
+import { auth, fsUpdateUser, fsGetUser, createDummyData } from "../../firebase";
 import { AuthContext } from "../State/AuthContext";
 
 const ProfileScreen = () => {
@@ -26,6 +26,14 @@ const ProfileScreen = () => {
   const handleProfileSave = () => {
     fsUpdateUser(authData.user.uid, userProfileName, userProfileAge);
   };
+
+  // Try creating dummy data
+  const handleCreateDummyData = () => {
+    createDummyData(5);
+  };
+
+
+  
 
   return (
     <>
@@ -66,6 +74,11 @@ const ProfileScreen = () => {
           <TouchableOpacity style={styles.button} onPress={handleProfileSave}>
             <Text style={styles.textButton}>Update Profile</Text>
           </TouchableOpacity>
+          { authData.user.email === 'irfmehmood@googlemail.com' && 
+          <TouchableOpacity style={styles.button} onPress={handleCreateDummyData}>
+            <Text style={styles.textButton}>Create Dummy Users</Text>
+          </TouchableOpacity>
+}
         </View>
       </SafeAreaView>
     </>
