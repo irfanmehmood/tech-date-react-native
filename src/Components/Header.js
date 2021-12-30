@@ -32,6 +32,12 @@ const Header = () => {
               uri: authData.profile.imageUrl,
             }}
           />
+          /*<Feather
+            style={styles.centeredIcon}
+            name="home"
+            size={50}
+            color="red"
+          />*/
           }
         </TouchableOpacity>
       </View>
@@ -46,7 +52,7 @@ const Header = () => {
             name="home"
             size={50}
             color="red"
-          />
+          ></Feather>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>
@@ -69,15 +75,18 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 12,
+    margin: 15,
     borderWidth: 0,
     flexDirection: "row",
     display: "flex",
+    alignItems: 'center',
   },
   row: {
     padding: 0,
     flex: 1,
     textAlign: "center",
+    
+    
   },
   centeredIcon: {
     textAlign: "center",
@@ -85,9 +94,13 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
-    borderRadius: 150 / 2,
+    borderRadius: 150,
     borderWidth: 3,
-    borderColor: "red"
+    borderColor: "red",
+    textAlign: "center",
+    padding: 0,
+    resizeMode : "cover",
+    alignSelf:'center'
   },
 });
 

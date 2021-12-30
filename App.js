@@ -37,7 +37,7 @@ export default function App() {
       <NavigationContainer >
         <Stack.Navigator
           screenOptions={{
-            headerShown: true
+            headerShown: false
           }}
         >
           {authData.user === null ? (
