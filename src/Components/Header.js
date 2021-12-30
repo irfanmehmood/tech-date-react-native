@@ -9,7 +9,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../State/AuthContext";
-
+import { styles } from "../Libs/style";
 
 const Header = () => {
 
@@ -72,36 +72,5 @@ const Header = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 15,
-    borderWidth: 0,
-    flexDirection: "row",
-    display: "flex",
-    alignItems: 'center',
-  },
-  row: {
-    padding: 0,
-    flex: 1,
-    textAlign: "center",
-    
-    
-  },
-  centeredIcon: {
-    textAlign: "center",
-  },
-  tinyLogo: {
-    width: 50,
-    height: 50,
-    borderRadius: 150,
-    borderWidth: 3,
-    borderColor: "red",
-    textAlign: "center",
-    padding: 0,
-    resizeMode : "cover",
-    alignSelf:'center'
-  },
-});
 
 export default Header;
