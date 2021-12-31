@@ -9,17 +9,23 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { auth, fsUpdateUser, fsGetUser } from "../../firebase";
+import { auth, fsUpdateUser, fsGetUser, createDummyData } from "../Libs/firebase";
 import { AuthContext } from "../State/AuthContext";
 
 const ProfileScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
-  const [userProfileName, setUserProfileName] = useState(authData.profile.name);
+  const [userProfileName, setUserProfileName] = useState(
+    authData.profile ? authData.profile.name : false
+  );
   const [userProfileAge, setUserProfileAge] = useState(
-    authData.profile.age.toString()
+    authData.profile ? authData.profile.age.toString() : 0
   );
   const [userProfileImageUrl, setUserProfileImageUrl] = useState(
-    authData.profile.imageUrl
+    authData.profile ? authData.profile.imageUrl : false
+  );
+
+  const [userCountry, setUserCountry] = useState(
+    authData.profile ? authData.profile.countryCode : false
   );
 
   // Try saving profile
@@ -27,13 +33,17 @@ const ProfileScreen = () => {
     fsUpdateUser(authData.user.uid, userProfileName, userProfileAge);
   };
 
+  // Try creating dummy data
+  const handleCreateDummyData = () => {
+    createDummyData(5);
+  };
+
   return (
     <>
       <SafeAreaView>
         <Header />
         <View style={styles.body}>
-          {userProfileName && (
-            <>
+   
               <Text>Name:</Text>
               <TextInput
                 style={styles.input}
@@ -61,11 +71,27 @@ const ProfileScreen = () => {
                   setUserProfileImageUrl(text);
                 }}
               />
-            </>
-          )}
+
+            <Text>Country:</Text>
+              <TextInput
+                style={styles.input}
+                value={userCountry}
+                onChangeText={(text) => {
+                  setUserCountry(text);
+                }}
+              />
+            
           <TouchableOpacity style={styles.button} onPress={handleProfileSave}>
             <Text style={styles.textButton}>Update Profile</Text>
           </TouchableOpacity>
+          {/* {authData.user.email === "irfmehmood@gmail.com" && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => createDummyData(10)}
+            >
+              <Text style={styles.textButton}>Create Dummy Users</Text>
+            </TouchableOpacity>
+          )} */}
         </View>
       </SafeAreaView>
     </>

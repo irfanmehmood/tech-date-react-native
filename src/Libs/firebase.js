@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
-import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where} from "firebase/firestore";
+import { setDoc, getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where} from "firebase/firestore";
 
 import { getDatabase, ref, set } from "firebase/database";
 import "firebase/compat/auth";
@@ -24,6 +24,9 @@ if (firebase.apps.length === 0) {
 } else {
   app = firebase.app();
 }
+
+// Create our global Auth object
+const auth = firebase.auth();
 
 // Expo, Firebase recipies
 // https://modularfirebase.web.app/common-use-cases/firestore/
@@ -65,7 +68,45 @@ const fsUpdateUser = async (uid, userProfileName, userProfileAge) => {
   console.log("Updated user!");
 };
 
-// Create our global Auth object
-const auth = firebase.auth();
+const createDummyData = async (howMany) => {
 
-export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches };
+  // DB handle
+  const db = getFirestore();
+
+  // Get our random males
+  const getMales = await fetch(`https://randomuser.me/api/?results=${howMany}&nat=gb,us,es&gender=male`);
+
+  // Covert to JSON
+  const males = await getMales.json();
+
+  // Get our random females
+  const getFemales = await fetch(`https://randomuser.me/api/?results=${howMany}&nat=gb,us,es&gender=female`);
+
+  // Covert to JSON
+  const females = await getFemales.json();
+
+  const users = males.results.concat(females.results);
+
+  // Loop random users and create user & profile on firebase
+  for (const user of users) {
+
+    let newUser = await auth.createUserWithEmailAndPassword(user.email, 'pass1234');
+
+    let name = user.name.first + " " + user.name.last;
+
+    let newUserProfile = await setDoc(doc(db, 'users', newUser.user.uid), {
+      uid: newUser.user.uid,
+      name: name,
+      gender: user.gender,
+      age: user.dob.age,
+      countryCode: user.nat,
+      imageUrl: user.picture.large
+    });
+
+    console.log("User profile created for: ", name);
+  }
+
+}
+
+
+export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches, createDummyData };

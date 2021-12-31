@@ -11,46 +11,18 @@ import {
 } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { styles } from "../Libs/style";
+import Card from "../Components/Card";
 
 import { AuthContext } from "../State/AuthContext";
 import Header from "../Components/Header";
-import { auth, fsGetAvilableMatches } from "../../firebase";
+import { auth, fsGetAvilableMatches } from "../Libs/firebase"
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { backgroundColor, borderColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const HomeScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
   const navigation = useNavigation();
   const [availableMatches, setAvailableMatches] = useState(false);
-
-
-  
-
-  const getDummyData = (men, women) => {
-    let users = [];
-
-    if (women) {
-      for (let i = 1; i < 10; i++) {
-        users.push({
-          imageUrl: `https://randomuser.me/api/portraits/women/${i}.jpg`,
-          name: `Women ${i}`,
-        })
-      }
-    }
-
-    if (men) {
-      for (let m = 1; m < 10; m++) {
-        users.push({
-          imageUrl: `https://randomuser.me/api/portraits/men/${m}.jpg`,
-          name: `Men ${m}`,
-        })
-      }
-    }
-
-    return users;
-
-  }
 
   useEffect(() => {
     fsGetAvilableMatches(authData.user.uid).then((result) => {
@@ -60,7 +32,7 @@ const HomeScreen = () => {
         //console.log(doc.id, " => ", doc.data());
         matches.push(doc.data());
       });
-      console.log(matches);
+      //console.log(matches);
       setAvailableMatches(matches);
     });
   }, []);
@@ -85,7 +57,7 @@ const HomeScreen = () => {
           {availableMatches  && (
             <Swiper 
               backgroundColor="white"
-              cards={getDummyData(true, true)}
+              cards={availableMatches}
               onSwiped={(cardIndex) => {console.log("cardIndex" , cardIndex)}}
               cardIndex={0}
               
@@ -98,7 +70,8 @@ const HomeScreen = () => {
                 console.log('onSwipedRight', cardIndex)
               }}
               renderCard={(match) => (
-                <View style={styles.card,{backgroundColor:"white"}, styles.cardShadow}>
+                <Card match={match} />
+                /*<View style={styles.card,{backgroundColor:"white"}, styles.cardShadow}>
                   <Image
                     
                     style={{
@@ -113,7 +86,7 @@ const HomeScreen = () => {
                     
                   />
                   <Text style={styles.text}>{match.name}</Text>
-                </View>
+                </View>*/
               )}
             />
           )}
@@ -125,7 +98,7 @@ const HomeScreen = () => {
         <View style={styles.row}>
             <TouchableOpacity
               onPress={() => {
-                console.log("Swiped Left")
+                console.log("Do not like")
               }}
             >
               <Ionicons name="heart-dislike" style={styles.accButton} size={50} color="#FE836D" />
@@ -134,7 +107,7 @@ const HomeScreen = () => {
           <View>
             <TouchableOpacity
               onPress={() => {
-                console.log("Swiped Right")
+                console.log("I Like")
               }}
             >
               <Ionicons name="heart-sharp" style={styles.accButton} size={50} color="#63DE9B" />
