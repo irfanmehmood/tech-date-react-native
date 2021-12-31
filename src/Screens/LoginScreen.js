@@ -34,22 +34,24 @@ const LoginScreen = () => {
          * 4. https://coderedirect.com/questions/475464/react-navigation-in-react-native-with-conditional-stack-and-authentication
          * */
 
-        // Store Firebase user in our context
+        // Now lets get user profile. Get our user document from firebase/firestore by userid
+        fsGetUser(userCredentials.user.uid).then((userProfile) => {
+
+          //console.log(userProfile);
+// Store Firestore user profile in our context
+          authDispatcher({
+            type: "setProfile",
+            payload: userProfile,
+          });
+
+          
+          // Store Firebase user in our context
         authDispatcher({
           type: "userLoggedIn",
           payload: userCredentials.user,
         });
 
-        // Now lets get user profile. Get our user document from firebase/firestore by userid
-        fsGetUser(userCredentials.user.uid).then((userProfile) => {
-
-          //console.log(userProfile);
-
-          // Store Firestore user profile in our context
-          authDispatcher({
-            type: "setProfile",
-            payload: userProfile,
-          });
+          
         });
 
         //console.log(auth.currentUser);

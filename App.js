@@ -48,11 +48,13 @@ export default function App() {
             </>
           ) : (
             <>
-              <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{ title: "Welcome", headerShown: false}}
-              />
+              {authData.profile !== null && 
+                <Stack.Screen
+                  name="Home"
+                  component={HomeScreen}
+                  options={{ title: "Welcome", headerShown: false}}
+                />
+              }
                <Stack.Screen
                 name="Profile"
                 component={ProfileScreen}
