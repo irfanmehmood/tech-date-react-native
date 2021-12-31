@@ -98,9 +98,14 @@ const HomeScreen = () => {
                 console.log('onSwipedRight', cardIndex)
               }}
               renderCard={(match) => (
-                <View style={styles.card,{backgroundColor:"white"}}>
+                <View style={styles.card,{backgroundColor:"white"}, styles.cardShadow}>
                   <Image
                     
+                    style={{
+                      flex: 1,
+                      width:"75%",
+                      height: "75%",
+                    }}
                     name="user"
                     source={{
                       uri: match.imageUrl,
