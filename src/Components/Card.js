@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
+import { symbolicateLogLazy } from "react-native/Libraries/LogBox/Data/LogBoxData";
 import { styles } from "../Libs/style";
 
 const Card = ({ match }) => {
@@ -18,25 +19,17 @@ const Card = ({ match }) => {
         }}
       />
 
-      <View
-        style={{
-          borderBottomLeftRadius: 15,
-          borderBottomRightRadius: 15,
-          padding: 10,
-          marginTop: -75,
-          backgroundColor: "black",
-          opacity: 0.75,
-        }}
-      >
+      <View style={{borderBottomLeftRadius: 15 , borderBottomRightRadius: 15 ,padding:10, marginTop: -75,backgroundColor: "black", opacity: 0.75}}>
+      <Image
+            style={styles.countryCode}
+            source={{
+              uri: `https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/png250px/${match.countryCode.toLowerCase()}.png`,
+            }}
+          />
         <Text style={styles.cardText}>{match.name}</Text>
         <Text style={styles.cardText}>Age: {match.age}</Text>
         <Text style={styles.cardText}>Country: {match.countryCode}</Text>
-        <Image
-          style={{ height: 32, width: 64, margin: 5 }}
-          source={{
-            uri: `https://cdn.staticaly.com/gh/hjnilsson/country-flags/master/png250px/${match.countryCode.toLowerCase()}.png`,
-          }}
-        />
+        
       </View>
     </View>
   );
