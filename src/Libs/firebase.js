@@ -53,7 +53,7 @@ const fsGetAvilableMatches = async (uid, gender) => {
   //const q = query(collection(db, "users"), where("uid", "!=", uid), where("gender", "!=", gender));
 
   const q = query(collection(db, "users"), where("uid", "!=", uid));
-  const q1 = query(collection(db, "users"), where("gender", "==", gender));
+  const q1 = query(collection(db, "users"), where("gender", "!=", gender));
 
 
   
