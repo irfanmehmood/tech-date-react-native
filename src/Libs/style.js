@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { backgroundColor, shadowColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes"
 
 export const styles = StyleSheet.create({
     body: {
@@ -26,17 +27,21 @@ export const styles = StyleSheet.create({
         padding: 20,
       },
       accButton:{
-        height: 100,     
-        width: 100,     
+        height: 63,     
+        width: 63,     
         position: 'relative',         
         borderRadius:200,
-        borderWidth: 6,    
+        borderWidth: 4,    
         display:'flex',     
         justifyContent:'center',     
         alignItems:'flex-end',
-        padding: 25,
-        margin: 75,
-        borderColor:'#F1F1F1'
+        padding: 6,
+        margin: 5,
+        borderColor:'white',
+        backgroundColor: '#F1F1F1',
+        shadowOpacity: 0.5,
+        shadowColor: "black",
+        shadowRadius: 1.41
         
       },
       text: {
