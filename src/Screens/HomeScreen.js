@@ -17,7 +17,7 @@ import { AuthContext } from "../State/AuthContext";
 import Header from "../Components/Header";
 import { auth, fsGetAvilableMatches } from "../Libs/firebase";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, Entypo, SimpleLineIcons } from '@expo/vector-icons';
 
 const HomeScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
@@ -103,12 +103,7 @@ const HomeScreen = () => {
                 console.log("Do not like");
               }}
             >
-              <Ionicons
-                name="heart-dislike"
-                style={styles.accButton}
-                size={50}
-                color="#FE836D"
-              />
+              <Entypo name="cross" style={styles.accButton} size={50} color="#ff2667" />
             </TouchableOpacity>
           </View>
           <View>
@@ -117,12 +112,7 @@ const HomeScreen = () => {
                 console.log("I Like");
               }}
             >
-              <Ionicons
-                name="heart-sharp"
-                style={styles.accButton}
-                size={50}
-                color="#63DE9B"
-              />
+              <SimpleLineIcons name="heart" style={styles.accButton, styles.accButtonOVR} size={35} color="#ff2667" />
             </TouchableOpacity>
           </View>
         </View>

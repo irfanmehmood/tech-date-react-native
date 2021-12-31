@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { backgroundColor, shadowColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes"
 
 export const styles = StyleSheet.create({
     body: {
@@ -26,18 +27,41 @@ export const styles = StyleSheet.create({
         padding: 20,
       },
       accButton:{
-        height: 100,     
-        width: 100,     
+        height: 50,     
+        width: 50,     
         position: 'relative',         
         borderRadius:200,
-        borderWidth: 6,    
+        borderWidth: 4,    
         display:'flex',     
         justifyContent:'center',     
         alignItems:'flex-end',
-        padding: 25,
-        margin: 75,
-        borderColor:'#F1F1F1'
+        padding: 0,
+        marginTop:40,
+        margin: 35,
+        borderColor:'white',
+        backgroundColor: '#F1F1F1',
+        shadowOpacity: 0.5,
+        shadowColor: "black",
+        shadowRadius: 1.41
         
+      },
+      accButtonOVR:{
+        height: 50,     
+        width: 50,     
+        position: 'relative',         
+        borderRadius:200,
+        borderWidth: 4,    
+        display:'flex',     
+        justifyContent:'center',     
+        alignItems:'flex-end',
+        padding: 7,
+        marginTop:40,
+        margin: 35,
+        borderColor:'white',
+        backgroundColor: '#F1F1F1',
+        shadowOpacity: 0.5,
+        shadowColor: "black",
+        shadowRadius: 1.41
       },
       text: {
         display:"flex",
@@ -96,5 +120,14 @@ export const styles = StyleSheet.create({
       cardText:{
         color:"white",
         fontSize: 15,
-      }
+        marginTop: -5,
+        letterSpacing: 1,
+        marginBottom: 0,
+        paddingBottom: -10
+      },
+      countryCode:{
+        height: 25, width: 50, margin: -5,
+        alignSelf: 'flex-end',
+        
+      },
 })
