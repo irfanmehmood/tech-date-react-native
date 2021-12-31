@@ -17,9 +17,6 @@ import React, { useReducer, useEffect } from "react";
 import { AuthContext } from "./src/State/AuthContext";
 import AuthDispatcher from "./src/State/AuthDispatcher";
 
-// Firebase authentication import
-import { auth } from "./firebase";
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {

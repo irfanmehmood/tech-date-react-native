@@ -9,12 +9,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AuthContext } from "../State/AuthContext";
-import { auth, fsGetUser } from '../../firebase';
+import { auth, fsGetUser } from "../Libs/firebase";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const { authData, authDispatcher } = useContext(AuthContext);
-  const [email, setEmail] = useState("irfmehmood@gmail.com");
+  const [email, setEmail] = useState("isaac.gonzalez@example.com");
   const [password, setPassword] = useState("pass1234");
   const [error, setError] = useState(false);
 

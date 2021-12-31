@@ -9,12 +9,14 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { auth, fsUpdateUser, fsGetUser, createDummyData } from "../../firebase";
+import { auth, fsUpdateUser, fsGetUser, createDummyData } from "../Libs/firebase";
 import { AuthContext } from "../State/AuthContext";
 
 const ProfileScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
-  const [userProfileName, setUserProfileName] = useState(authData.profile ? authData.profile.name: false);
+  const [userProfileName, setUserProfileName] = useState(
+    authData.profile ? authData.profile.name : false
+  );
   const [userProfileAge, setUserProfileAge] = useState(
     authData.profile ? authData.profile.age.toString() : 0
   );
@@ -32,16 +34,12 @@ const ProfileScreen = () => {
     createDummyData(5);
   };
 
-
-  
-
   return (
     <>
       <SafeAreaView>
         <Header />
         <View style={styles.body}>
-          {userProfileName && (
-            <>
+   
               <Text>Name:</Text>
               <TextInput
                 style={styles.input}
@@ -69,16 +67,18 @@ const ProfileScreen = () => {
                   setUserProfileImageUrl(text);
                 }}
               />
-            </>
-          )}
+            
           <TouchableOpacity style={styles.button} onPress={handleProfileSave}>
             <Text style={styles.textButton}>Update Profile</Text>
           </TouchableOpacity>
-          { authData.user.email === 'irfmehmood@gmail.com' && 
-          <TouchableOpacity style={styles.button} onPress={() => createDummyData(10)}>
-            <Text style={styles.textButton}>Create Dummy Users</Text>
-          </TouchableOpacity>
-}
+          {/* {authData.user.email === "irfmehmood@gmail.com" && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => createDummyData(10)}
+            >
+              <Text style={styles.textButton}>Create Dummy Users</Text>
+            </TouchableOpacity>
+          )} */}
         </View>
       </SafeAreaView>
     </>

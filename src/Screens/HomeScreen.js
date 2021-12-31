@@ -11,13 +11,13 @@ import {
 } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { styles } from "../Libs/style";
+import Card from "../Components/Card";
 
 import { AuthContext } from "../State/AuthContext";
 import Header from "../Components/Header";
-import { auth, fsGetAvilableMatches } from "../../firebase";
+import { auth, fsGetAvilableMatches } from "../Libs/firebase"
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { backgroundColor, borderColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const HomeScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
@@ -70,17 +70,7 @@ const HomeScreen = () => {
                 console.log('onSwipedRight', cardIndex)
               }}
               renderCard={(match) => (
-                <View style={styles.card,{backgroundColor:"white"}}>
-                  <Image
-                    style={{height: 500}}
-                    name="user"
-                    source={{
-                      uri: match.imageUrl,
-                    }}
-                    
-                  />
-                  <Text style={styles.text}>{match.name}</Text>
-                </View>
+                <Card match={match} />
               )}
             />
           )}
@@ -92,7 +82,7 @@ const HomeScreen = () => {
         <View style={styles.row}>
             <TouchableOpacity
               onPress={() => {
-                console.log("Swiped Left")
+                console.log("Do not like")
               }}
             >
               <Ionicons name="heart-dislike" style={styles.accButton} size={50} color="#FE836D" />
@@ -101,7 +91,7 @@ const HomeScreen = () => {
           <View>
             <TouchableOpacity
               onPress={() => {
-                console.log("Swiped Right")
+                console.log("I Like")
               }}
             >
               <Ionicons name="heart-sharp" style={styles.accButton} size={50} color="#63DE9B" />
