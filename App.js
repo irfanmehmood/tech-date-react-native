@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { styles } from "./src/Libs/style";
 
 // Custom screens
 import HomeScreen from "./src/Screens/HomeScreen";
@@ -16,6 +16,7 @@ import React, { useReducer, useEffect } from "react";
 // Auth State
 import { AuthContext } from "./src/State/AuthContext";
 import AuthDispatcher from "./src/State/AuthDispatcher";
+import MyTabs from "./src/Components/BottomTabs";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,13 +33,13 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ authData, authDispatcher }} style={{ }}>
-      <NavigationContainer >
+      {authData.user === null ? (<NavigationContainer >
         <Stack.Navigator
           screenOptions={{
             headerShown: false
           }}
         >
-          {authData.user === null ? (
+          
             <>
               <Stack.Screen
                 name="Login"
@@ -46,24 +47,10 @@ export default function App() {
                 options={{ title: "Login"}}
               />
             </>
-          ) : (
-            <>
-              {authData.profile !== null && 
-                <Stack.Screen
-                  name="Home"
-                  component={HomeScreen}
-                  options={{ title: "Welcome", headerShown: false}}
-                />
-              }
-               <Stack.Screen
-                name="Profile"
-                component={ProfileScreen}
-                options={{ title: "Profile", headerShown: false}}
-              />
-            </>
-          )}
+         
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationContainer>): <MyTabs/>}
+      
     </AuthContext.Provider>
   );
 }

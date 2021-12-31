@@ -41,7 +41,7 @@ const ProfileScreen = () => {
   return (
     <>
       <SafeAreaView>
-        <Header />
+        {/*<Header />*/}
         <View style={styles.body}>
    
               <Text>Name:</Text>
