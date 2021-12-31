@@ -18,6 +18,7 @@ import Header from "../Components/Header";
 import { auth, fsGetAvilableMatches } from "../Libs/firebase"
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons, Entypo, SimpleLineIcons } from '@expo/vector-icons';
+import MyTabs from "../Components/BottomTabs";
 
 const HomeScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
@@ -50,7 +51,7 @@ const HomeScreen = () => {
   return (
     <>
       <SafeAreaView style={styles.body}>
-        <Header />
+        {/*<Header />*/}
         <View style={styles.card}>
           <View style={styles.body}>
           
@@ -113,7 +114,9 @@ const HomeScreen = () => {
               <SimpleLineIcons name="heart" style={styles.accButton, styles.accButtonOVR} size={35} color="#ff2667" />
             </TouchableOpacity>
           </View>
+          
           </View>
+          
       </SafeAreaView>
     </>
   );
