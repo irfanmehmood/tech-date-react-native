@@ -15,7 +15,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const { authData, authDispatcher } = useContext(AuthContext);
   const [email, setEmail] = useState("irfmehmood@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("pass1234");
   const [error, setError] = useState(false);
 
   // Try logging user in 
@@ -23,7 +23,7 @@ const LoginScreen = () => {
     setError(false);
     auth.signInWithEmailAndPassword(email, password).then( (userCredentials) => {
       //console.log(userCredentials.user);
-      if (userCredentials.user.emailVerified === false) {
+      if (userCredentials.user.emailVerified === true) {
         // User email is not verified
         setError('You need to verify your email');
       } else {
