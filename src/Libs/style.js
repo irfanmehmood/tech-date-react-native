@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
         display: "flex",
         backgroundColor:"white",
         height:"100%",
-        color:"white"
+        color:"white",
       },
       card: {
         // padding: 10,
         display: "flex",
         flex: 1,
-        height:"100%"
+        height:"50%",
         
         
       },
@@ -26,16 +26,16 @@ export const styles = StyleSheet.create({
         padding: 20,
       },
       accButton:{
-        height: 125,     
-        width: 125,     
+        height: 100,     
+        width: 100,     
         position: 'relative',         
         borderRadius:200,
         borderWidth: 6,    
         display:'flex',     
         justifyContent:'center',     
-        alignItems:'center',
-        padding: 36,
-        margin: 10,
+        alignItems:'flex-end',
+        padding: 25,
+        margin: 75,
         borderColor:'#F1F1F1'
         
       },
@@ -84,14 +84,18 @@ export const styles = StyleSheet.create({
         alignSelf:'center'
       },
       cardShadow: {
-        shadowColor: "#000",
+        shadowColor: "#FFF",
         shadowOffset:{
           width: 0,
           height: 1,
         },
-        shadowOpacity: 0.2,
-        shadowRadius: 1.41,
+        shadowOpacity: 0.5,
+        shadowRadius: 1.45,
 
         elevation: 2,
+      },
+      cardText:{
+        color:"white",
+        fontSize: 15,
       }
 })

@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 10,
-        marginTop: 10,
-        margin: 10,
+        marginTop: 0,
+        margin: 5,
   },
   inputContainer:{
     width: "80%"
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         width: '60%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 50,
+        marginTop: 25,
   },
   text: {
     fontSize: 20,
