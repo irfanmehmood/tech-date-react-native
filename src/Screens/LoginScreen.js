@@ -76,27 +76,28 @@ const LoginScreen = () => {
   };
 
   return (
-    <View>
-      
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          onChangeText={(text) => {
-            setEmail(text);
-          }}
-          value={email}
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => {
-            setPassword(text);
-          }}
-          value={password}
-          placeholder="Password"
-          keyboardType="numeric"
-          secureTextEntry={true}
-          password={true}
-        />
+    <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+            value={email}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+            value={password}
+            placeholder="Password"
+            keyboardType="numeric"
+            secureTextEntry={true}
+            password={true}
+          />
+        </View>
         <TouchableOpacity style={styles.button} onPress={handleLoginUser}>
           <Text style={styles.text}>Login</Text>
         </TouchableOpacity>
@@ -112,36 +113,54 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+        justifyContent:'center',
+        alignItems: 'center',
+  },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    backgroundColor:"white",
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 10,
+        marginTop: 10,
+        margin: 10,
+  },
+  inputContainer:{
+    width: "80%"
   },
   button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    margin: 12,
+    backgroundColor: '#ba000d',
+        width: '100%',
+        padding: 15,
+        borderRadius: 10,
+        alignItems: 'center',
+        width: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 50,
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
   },
   error: {
     fontSize: 16,
-    lineHeight: 21,
+    lineHeight: 22,
     fontWeight: "bold",
-    letterSpacing: 0.25,
+    letterSpacing: 0.15,
     color: "red",
-    margin: 12,
+    margin: 42,
   },
 });
 

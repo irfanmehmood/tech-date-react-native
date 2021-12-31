@@ -71,6 +71,22 @@ const HomeScreen = () => {
               }}
               renderCard={(match) => (
                 <Card match={match} />
+                /*<View style={styles.card,{backgroundColor:"white"}, styles.cardShadow}>
+                  <Image
+                    
+                    style={{
+                      flex: 1,
+                      width:"75%",
+                      height: "75%",
+                    }}
+                    name="user"
+                    source={{
+                      uri: match.imageUrl,
+                    }}
+                    
+                  />
+                  <Text style={styles.text}>{match.name}</Text>
+                </View>*/
               )}
             />
           )}
