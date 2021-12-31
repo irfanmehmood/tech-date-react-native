@@ -24,34 +24,6 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [availableMatches, setAvailableMatches] = useState(false);
 
-
-  
-
-  const getDummyData = (men, women) => {
-    let users = [];
-
-    if (women) {
-      for (let i = 1; i < 10; i++) {
-        users.push({
-          imageUrl: `https://randomuser.me/api/portraits/women/${i}.jpg`,
-          name: `Women ${i}`,
-        })
-      }
-    }
-
-    if (men) {
-      for (let m = 1; m < 10; m++) {
-        users.push({
-          imageUrl: `https://randomuser.me/api/portraits/men/${m}.jpg`,
-          name: `Men ${m}`,
-        })
-      }
-    }
-
-    return users;
-
-  }
-
   useEffect(() => {
     fsGetAvilableMatches(authData.user.uid).then((result) => {
       let matches = [];
@@ -60,7 +32,7 @@ const HomeScreen = () => {
         //console.log(doc.id, " => ", doc.data());
         matches.push(doc.data());
       });
-      console.log(matches);
+      //console.log(matches);
       setAvailableMatches(matches);
     });
   }, []);
@@ -85,7 +57,7 @@ const HomeScreen = () => {
           {availableMatches  && (
             <Swiper 
               backgroundColor="white"
-              cards={getDummyData(true, true)}
+              cards={availableMatches}
               onSwiped={(cardIndex) => {console.log("cardIndex" , cardIndex)}}
               cardIndex={0}
               
@@ -100,7 +72,7 @@ const HomeScreen = () => {
               renderCard={(match) => (
                 <View style={styles.card,{backgroundColor:"white"}}>
                   <Image
-                    
+                    style={{height: 500}}
                     name="user"
                     source={{
                       uri: match.imageUrl,
