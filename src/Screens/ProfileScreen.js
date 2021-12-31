@@ -24,6 +24,10 @@ const ProfileScreen = () => {
     authData.profile ? authData.profile.imageUrl : false
   );
 
+  const [userCountry, setUserCountry] = useState(
+    authData.profile ? authData.profile.countryCode : false
+  );
+
   // Try saving profile
   const handleProfileSave = () => {
     fsUpdateUser(authData.user.uid, userProfileName, userProfileAge);
@@ -65,6 +69,15 @@ const ProfileScreen = () => {
                 value={userProfileImageUrl}
                 onChangeText={(text) => {
                   setUserProfileImageUrl(text);
+                }}
+              />
+
+            <Text>Country:</Text>
+              <TextInput
+                style={styles.input}
+                value={userCountry}
+                onChangeText={(text) => {
+                  setUserCountry(text);
                 }}
               />
             
