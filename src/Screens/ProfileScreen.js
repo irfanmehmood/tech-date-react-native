@@ -14,12 +14,12 @@ import { AuthContext } from "../State/AuthContext";
 
 const ProfileScreen = () => {
   const { authData, authDispatcher } = useContext(AuthContext);
-  const [userProfileName, setUserProfileName] = useState(authData.profile.name);
+  const [userProfileName, setUserProfileName] = useState(authData.profile ? authData.profile.name: false);
   const [userProfileAge, setUserProfileAge] = useState(
-    authData.profile.age.toString()
+    authData.profile ? authData.profile.age.toString() : 0
   );
   const [userProfileImageUrl, setUserProfileImageUrl] = useState(
-    authData.profile.imageUrl
+    authData.profile ? authData.profile.imageUrl : false
   );
 
   // Try saving profile
@@ -74,8 +74,8 @@ const ProfileScreen = () => {
           <TouchableOpacity style={styles.button} onPress={handleProfileSave}>
             <Text style={styles.textButton}>Update Profile</Text>
           </TouchableOpacity>
-          { authData.user.email === 'irfmehmood@googlemail.com' && 
-          <TouchableOpacity style={styles.button} onPress={handleCreateDummyData}>
+          { authData.user.email === 'irfmehmood@gmail.com' && 
+          <TouchableOpacity style={styles.button} onPress={() => createDummyData(10)}>
             <Text style={styles.textButton}>Create Dummy Users</Text>
           </TouchableOpacity>
 }
