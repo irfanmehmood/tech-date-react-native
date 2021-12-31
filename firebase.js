@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
-import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where} from "firebase/firestore";
+import { setDoc, getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where} from "firebase/firestore";
 
 import { getDatabase, ref, set } from "firebase/database";
 import "firebase/compat/auth";
@@ -68,67 +68,45 @@ const fsUpdateUser = async (uid, userProfileName, userProfileAge) => {
   console.log("Updated user!");
 };
 
-const registerUser = (email, password) => {
-  auth.createUserWithEmailAndPassword(email, password).then( (response) => {
-    console.log(response);
-  }).catch( (error) => {
-     console.log(error.message);
-  });
-}
-
 const createDummyData = async (howMany) => {
 
-  //registerUser
+  // DB handle
+  const db = getFirestore();
 
-  // Get our random users
-  const response  = await fetch(`https://randomuser.me/api/?results=3&nat=gb,us,es`);
+  // Get our random males
+  const getMales = await fetch(`https://randomuser.me/api/?results=${howMany}&nat=gb,us,es&gender=male`);
 
   // Covert to JSON
-  const users = await response.json();
+  const males = await getMales.json();
 
-  // Loop over our random Users
-  users.results.forEach(function (user) {
+  // Get our random females
+  const getFemales = await fetch(`https://randomuser.me/api/?results=${howMany}&nat=gb,us,es&gender=female`);
 
-    // Try to register user
-    let registered = registerUser(user.email, 'pass1234');
+  // Covert to JSON
+  const females = await getFemales.json();
 
-    // If success
-    if (registered) {
+  const users = males.results.concat(females.results);
 
-      // Create user profile
-        
-    }
+  // Loop random users and create user & profile on firebase
+  for (const user of users) {
 
-  });
+    let newUser = await auth.createUserWithEmailAndPassword(user.email, 'pass1234');
 
-  
+    let name = user.name.first + " " + user.name.last;
 
-  
-  
-  // let users = [];
+    let newUserProfile = await setDoc(doc(db, 'users', newUser.user.uid), {
+      uid: newUser.user.uid,
+      name: name,
+      gender: user.gender,
+      age: user.dob.age,
+      countryCode: user.nat,
+      imageUrl: user.picture.large
+    });
 
-  // if (women) {
-  //   for (let i = 1; i < 10; i++) {
-  //     users.push({
-  //       imageUrl: `https://randomuser.me/api/portraits/women/${i}.jpg`,
-  //       name: `Women ${i}`,
-  //     })
-  //   }
-  // }
-
-  // if (men) {
-  //   for (let m = 1; m < 10; m++) {
-  //     users.push({
-  //       imageUrl: `https://randomuser.me/api/portraits/men/${m}.jpg`,
-  //       name: `Men ${m}`,
-  //     })
-  //   }
-  // }
-
-  // return users;
+    console.log("User profile created for: ", name);
+  }
 
 }
-
 
 
 export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches, createDummyData };
