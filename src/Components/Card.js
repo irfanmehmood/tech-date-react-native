@@ -3,12 +3,16 @@ import { View, Text, Image } from "react-native";
 import { symbolicateLogLazy } from "react-native/Libraries/LogBox/Data/LogBoxData";
 import { styles } from "../Libs/style";
 
-const Card = ({match}) => {
+const Card = ({ match }) => {
   return (
-    <View style={(styles.card, {borderRadius:10, backgroundColor: "transparent", opacity: 1,})}>
+    <View
+      style={
+        (styles.card,
+        { borderRadius: 10, backgroundColor: "transparent", opacity: 1 })
+      }
+    >
       <Image
-        style={{ height: "95%", borderRadius:15, marginBottom:-7 }}
-    
+        style={{ height: "75%", borderRadius: 15, marginBottom: -7 }}
         name="user"
         source={{
           uri: match.imageUrl,

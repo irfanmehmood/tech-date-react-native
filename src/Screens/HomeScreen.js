@@ -15,7 +15,7 @@ import Card from "../Components/Card";
 
 import { AuthContext } from "../State/AuthContext";
 import Header from "../Components/Header";
-import { auth, fsGetAvilableMatches } from "../Libs/firebase"
+import { auth, fsGetAvilableMatches } from "../Libs/firebase";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons, Entypo, SimpleLineIcons } from '@expo/vector-icons';
 import MyTabs from "../Components/BottomTabs";
@@ -26,16 +26,20 @@ const HomeScreen = () => {
   const [availableMatches, setAvailableMatches] = useState(false);
 
   useEffect(() => {
-    fsGetAvilableMatches(authData.user.uid).then((result) => {
-      let matches = [];
-      result.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        //console.log(doc.id, " => ", doc.data());
-        matches.push(doc.data());
-      });
-      //console.log(matches);
-      setAvailableMatches(matches);
-    });
+    if (authData.profile && authData.user) {
+      fsGetAvilableMatches(authData.user.uid, authData.profile.gender).then(
+        (result) => {
+          let matches = [];
+          result.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            //console.log(doc.id, " => ", doc.data());
+            matches.push(doc.data());2
+          });
+          //console.log(matches);
+          setAvailableMatches(matches);
+        }
+      );
+    }
   }, []);
 
   // Handle signout for user
@@ -54,25 +58,25 @@ const HomeScreen = () => {
         {/*<Header />*/}
         <View style={styles.card}>
           <View style={styles.body}>
-          
-          {availableMatches  && (
-            <Swiper 
-              backgroundColor="white"
-              cards={availableMatches}
-              onSwiped={(cardIndex) => {console.log("cardIndex" , cardIndex)}}
-              cardIndex={0}
-              
-              stackSize= {3}
-              verticalSwipe={false}
-              onSwipedLeft={(cardIndex) => {
-                console.log('onSwipedLeft', cardIndex)
-              }}
-              onSwipedRight={(cardIndex) => {
-                console.log('onSwipedRight', cardIndex)
-              }}
-              renderCard={(match) => (
-                <Card match={match} />
-                /*<View style={styles.card,{backgroundColor:"white"}, styles.cardShadow}>
+            {availableMatches && (
+              <Swiper
+                backgroundColor="white"
+                cards={availableMatches}
+                onSwiped={(cardIndex) => {
+                  console.log("cardIndex", cardIndex);
+                }}
+                cardIndex={0}
+                stackSize={3}
+                verticalSwipe={false}
+                onSwipedLeft={(cardIndex) => {
+                  console.log("onSwipedLeft", cardIndex);
+                }}
+                onSwipedRight={(cardIndex) => {
+                  console.log("onSwipedRight", cardIndex);
+                }}
+                renderCard={(match) => (
+                  <Card match={match} />
+                  /*<View style={styles.card,{backgroundColor:"white"}, styles.cardShadow}>
                   <Image
                     
                     style={{
@@ -88,18 +92,16 @@ const HomeScreen = () => {
                   />
                   <Text style={styles.text}>{match.name}</Text>
                 </View>*/
-              )}
-            />
-          )}
-          
+                )}
+              />
+            )}
           </View>
-          
         </View>
         <View style={styles.box}>
-        <View style={styles.row}>
+          <View style={styles.row}>
             <TouchableOpacity
               onPress={() => {
-                console.log("Do not like")
+                console.log("Do not like");
               }}
             >
               <Entypo name="cross" style={styles.accButton} size={50} color="#ff2667" />
@@ -108,7 +110,7 @@ const HomeScreen = () => {
           <View>
             <TouchableOpacity
               onPress={() => {
-                console.log("I Like")
+                console.log("I Like");
               }}
             >
               <SimpleLineIcons name="heart" style={styles.accButton, styles.accButtonOVR} size={35} color="#ff2667" />
@@ -121,7 +123,5 @@ const HomeScreen = () => {
     </>
   );
 };
-
-
 
 export default HomeScreen;
