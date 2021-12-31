@@ -78,7 +78,6 @@ export const styles = StyleSheet.create({
         borderRadius: 150,
         borderWidth: 3,
         borderColor: "red",
-        textAlign: "center",
         padding: 0,
         resizeMode : "cover",
         alignSelf:'center'
