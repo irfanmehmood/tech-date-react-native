@@ -110,7 +110,7 @@ const HomeScreen = () => {
                 console.log("I Like")
               }}
             >
-              <SimpleLineIcons name="heart" style={styles.accButton} size={50} color="#ff2667" />
+              <SimpleLineIcons name="heart" style={styles.accButton, styles.accButtonOVR} size={35} color="#ff2667" />
             </TouchableOpacity>
           </View>
           </View>
