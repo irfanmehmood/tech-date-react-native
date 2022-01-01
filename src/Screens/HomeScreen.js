@@ -26,7 +26,7 @@ const HomeScreen = () => {
   const [availableMatches, setAvailableMatches] = useState(false);
 
   useEffect(() => {
-    fsGetAvilableMatches(authData.user.uid).then((result) => {
+    fsGetAvilableMatches(authData.user.uid, authData.profile.gender).then((result) => {
       let matches = [];
       result.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
