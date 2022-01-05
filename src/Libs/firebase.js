@@ -50,16 +50,13 @@ const fsGetUser = async (uid) => {
 };
 
 // Get user document - profile
-const fsGetAvilableMatches = async (uid) => {
+const fsGetAvilableMatches = async (uid, gender) => {
   
-  
+  const db = getFirestore();
+  const q = query(collection(db, "users"), where("uid", "!=", uid));
+  const q1 = query(collection(db, "users"), where("gender", "!=", gender));
 
-  
-
-  const q = query(collection(getFirestore(), "users"), where("uid", "!=", uid));
-
-
-  const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(q1);
 
   
 
