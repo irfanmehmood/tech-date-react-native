@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,9 +7,12 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Image,
+  ImageBackground,
 } from "react-native";
 import { AuthContext } from "../State/AuthContext";
 import { auth, fsGetUser } from "../Libs/firebase";
+import tailwind from "tailwind-rn";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -17,6 +20,12 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("isaac.gonzalez@example.com");
   const [password, setPassword] = useState("pass1234");
   const [error, setError] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false
+    });
+  }, []);
 
   // Try logging user in 
   const handleLoginUser = () => {
@@ -76,10 +85,13 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-        <View style={styles.inputContainer}>
+    <View style={tailwind("flex-1")}>
+    <ImageBackground source={{ uri: "https://www.designbombs.com/wp-content/uploads/2016/10/code-sharing-websites-1280x720.jpg" }} style={tailwind("flex-1")}>
+    
+        
+        <View >
           <TextInput
-            style={styles.input}
+            style={[tailwind("absolute top-20  w-52 bg-white p-4 rounded-xl"), { marginHorizontal: "25%" }]}
             placeholder="Email"
             onChangeText={(text) => {
               setEmail(text);
@@ -87,7 +99,7 @@ const LoginScreen = () => {
             value={email}
           />
           <TextInput
-            style={styles.input}
+            style={[tailwind("absolute top-40  w-52 bg-white p-4 rounded-xl"), { marginHorizontal: "25%" }]}
             onChangeText={(text) => {
               setPassword(text);
             }}
@@ -98,70 +110,21 @@ const LoginScreen = () => {
             password={true}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleLoginUser}>
-          <Text style={styles.text}>Login</Text>
+        <TouchableOpacity onPress={handleLoginUser} style={[tailwind("absolute bottom-40 w-52 bg-white p-4 rounded-2xl"), { marginHorizontal: "25%" }]}>
+          <Text style={tailwind('font-semibold text-center')} >Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleRegisterUser}>
-          <Text style={styles.text}>Register</Text>
+        <TouchableOpacity onPress={handleRegisterUser} style={[tailwind("absolute bottom-20 w-52 bg-white p-4 rounded-2xl"), { marginHorizontal: "25%" }]}>
+          <Text style={tailwind('font-semibold text-center')} >Register</Text>
         </TouchableOpacity>
         {error !== false && (
-          <Text style={styles.error}>{error}</Text>
+          <Text >{error}</Text>
         )}
-     
+    
+
+    </ImageBackground>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-        justifyContent:'center',
-        alignItems: 'center',
-  },
-  input: {
-    backgroundColor:"white",
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginTop: 0,
-        margin: 5,
-  },
-  inputContainer:{
-    width: "80%"
-  },
-  button: {
-    backgroundColor: '#ba000d',
-        width: '100%',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 25,
-  },
-  text: {
-    fontSize: 20,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-  },
-  error: {
-    fontSize: 16,
-    lineHeight: 22,
-    fontWeight: "bold",
-    letterSpacing: 0.15,
-    color: "red",
-    margin: 42,
-  },
-});
 
 export default LoginScreen;

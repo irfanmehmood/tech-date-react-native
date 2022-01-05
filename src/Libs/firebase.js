@@ -1,10 +1,11 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
-import { setDoc, getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where} from "firebase/firestore";
-
+import { setDoc, getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where, addDoc, Firestore} from "firebase/firestore";
+import React from "react";
 import { getDatabase, ref, set } from "firebase/database";
 import "firebase/compat/auth";
-
+import "firebase/firestore"
+import { AuthContext } from "../State/AuthContext";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -16,6 +17,8 @@ const firebaseConfig = {
   appId: "1:6116008248:web:11bbeb1941fd23b2d4a1cd",
   measurementId: "G-VRDM7VVK3X",
 };
+
+
 
 let app;
 
@@ -49,12 +52,34 @@ const fsGetUser = async (uid) => {
 // Get user document - profile
 const fsGetAvilableMatches = async (uid) => {
   
-  const db = getFirestore();
-  const q = query(collection(db, "users"), where("uid", "!=", uid));
+  
+
+  
+
+  const q = query(collection(getFirestore(), "users"), where("uid", "!=", uid));
+
+
   const querySnapshot = await getDocs(q);
+
+  
 
   return querySnapshot;
 };
+
+const sendMessage = async (id, message, date, usr) => {
+  try {
+    const docRef = await addDoc(collection(getFirestore(), "chats"), {
+      _id: id,
+      text: message,
+      createdAt: date,
+      user: {usr}
+
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 // Update user document - profile
 const fsUpdateUser = async (uid, userProfileName, userProfileAge) => {
@@ -108,5 +133,6 @@ const createDummyData = async (howMany) => {
 
 }
 
+const db = getFirestore();
 
-export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches, createDummyData };
+export { auth, fsGetUser, fsUpdateUser, fsGetAvilableMatches, createDummyData, db, sendMessage};

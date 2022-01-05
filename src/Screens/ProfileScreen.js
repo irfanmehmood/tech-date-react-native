@@ -1,5 +1,5 @@
 import Header from "../Components/Header";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useLayoutEffect } from "react";
 
 import {
   SafeAreaView,
@@ -8,11 +8,23 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Image
 } from "react-native";
 import { auth, fsUpdateUser, fsGetUser, createDummyData } from "../Libs/firebase";
 import { AuthContext } from "../State/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import tailwind from "tailwind-rn";
 
 const ProfileScreen = () => {
+
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false
+    });
+  }, []);
+
   const { authData, authDispatcher } = useContext(AuthContext);
   const [userProfileName, setUserProfileName] = useState(
     authData.profile ? authData.profile.name : false
@@ -39,23 +51,25 @@ const ProfileScreen = () => {
   };
 
   return (
-    <>
-      <SafeAreaView>
-        {/*<Header />*/}
-        <View style={styles.body}>
-   
-              <Text>Name:</Text>
+
+        <View style={tailwind(" flex-1 items-center pt-1 ")}>
+
+              <Image style={tailwind("h-20 w-20 rounded-3xl")} source={{ uri: userProfileImageUrl }} />
+
+              <Text style={tailwind("text-xl text-gray-500 p-2 font-bold")}>Welcome {authData?.profile?.name}</Text>
+
+              <Text style={tailwind("text-center p-5 font-bold text-red-400")}>1. Enter your Name:</Text>
               <TextInput
-                style={styles.input}
+                style={tailwind("text-center text-xl pb-2")}
                 placeholder="Name"
                 value={userProfileName}
                 onChangeText={(text) => {
                   setUserProfileName(text);
                 }}
               />
-              <Text>Age:</Text>
+              <Text style={tailwind("text-center p-4 font-bold text-red-400")}>2. Enter Your Age:</Text>
               <TextInput
-                style={styles.input}
+                style={tailwind("text-center text-xl pb-2")}
                 keyboardType="numeric"
                 value={userProfileAge}
                 onChangeText={(text) => {
@@ -63,26 +77,26 @@ const ProfileScreen = () => {
                 }}
               />
 
-              <Text>Image:</Text>
+              <Text style={tailwind("text-center p-4 font-bold text-red-400")}>3. Enter Profile Pic:</Text>
               <TextInput
-                style={styles.input}
+               style={tailwind("text-center text-xl pb-2")}
                 value={userProfileImageUrl}
                 onChangeText={(text) => {
                   setUserProfileImageUrl(text);
                 }}
               />
 
-            <Text>Country:</Text>
+            <Text style={tailwind("text-center p-4 font-bold text-red-400")}>4. Enter Country:</Text>
               <TextInput
-                style={styles.input}
+                style={tailwind("text-center text-xl pb-2")}
                 value={userCountry}
                 onChangeText={(text) => {
                   setUserCountry(text);
                 }}
               />
             
-          <TouchableOpacity style={styles.button} onPress={handleProfileSave}>
-            <Text style={styles.textButton}>Update Profile</Text>
+          <TouchableOpacity style={tailwind("w-64 p-3 rounded-xl absolute bottom-10 bg-red-400")} onPress={handleProfileSave}>
+            <Text style={tailwind("text-center text-white text-xl")}>Update Profile</Text>
           </TouchableOpacity>
           {/* {authData.user.email === "irfmehmood@gmail.com" && (
             <TouchableOpacity
@@ -93,46 +107,9 @@ const ProfileScreen = () => {
             </TouchableOpacity>
           )} */}
         </View>
-      </SafeAreaView>
-    </>
   );
 };
 
-const styles = StyleSheet.create({
-  body: {
-    padding: 20,
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-    marginBottom: 10,
-    padding: 20,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "black",
-    marginBottom: 10,
-  },
-  textButton: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-    borderRadius: 75,
-  },
-});
+
 
 export default ProfileScreen;

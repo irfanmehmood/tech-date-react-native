@@ -49,7 +49,9 @@ export default function App() {
             </>
          
         </Stack.Navigator>
-      </NavigationContainer>): <MyTabs/>}
+      </NavigationContainer>):
+       <MyTabs/>
+      }
       
     </AuthContext.Provider>
   );
