@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { styles } from "./src/Libs/style";
+
 
 // Custom screens
 import HomeScreen from "./src/Screens/HomeScreen";

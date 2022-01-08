@@ -4,14 +4,18 @@ import tailwind from 'tailwind-rn'
 import { Foundation, Ionicons } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
 
-const Header = ({ title, callEnabled }) => {
+const Header = ({ title, callEnabled, messageScreen }) => {
 
     const navigation = useNavigation()
+
+    const handleGoBack = () =>{
+        { messageScreen ? navigation.navigate("Chat") : navigation.goBack() }
+    }
 
     return (
         <View style={tailwind("p-2 flex-row items-center justify-between ")}>
             <View style={tailwind("flex flex-row items-center")}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={tailwind("p-2")} >
+                <TouchableOpacity onPress={() => handleGoBack()} style={tailwind("p-2")} >
                     <Ionicons name="chevron-back-outline" size={34} color="#FF5864" />
                 </TouchableOpacity>
                 <Text style={tailwind("text-2xl font-bold pl-2")}>{title}</Text>

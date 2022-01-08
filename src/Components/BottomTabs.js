@@ -10,8 +10,11 @@ import { auth, fsGetAvilableMatches } from "../Libs/firebase"
 import { AuthContext } from '../State/AuthContext';
 import ChatScreen from '../Screens/ChatScreen';
 import MatchedScreen from '../Screens/MatchedScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import MessageScreen from '../Screens/MessageScreen';
 
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 let matchNotif;
 
@@ -25,7 +28,7 @@ export default function MyTabs() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Drawer.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -50,12 +53,17 @@ export default function MyTabs() {
         })}
       >
         
-        <Tab.Screen name="Home" component={HomeScreen} options={{}} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Chat" component={ChatScreen} />
-        <Tab.Screen name="Match" component={MatchedScreen} options={{display:'none'}} />
+        <Drawer.Screen name="Home" component={HomeScreen} options={{}} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name="Chat" component={ChatScreen} />
+        <Drawer.Screen name="Match" options={{
+          drawerItemStyle: { height: 0 }
+        }} component={MatchedScreen}/>
+        <Drawer.Screen name="Message" component={MessageScreen} options={{
+          drawerItemStyle: { height: 0 }
+        }} />
         
-      </Tab.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
